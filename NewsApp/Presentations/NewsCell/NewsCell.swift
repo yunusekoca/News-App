@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class NewsTableViewCell: UITableViewCell {
+final class NewsTableViewCell: UITableViewCell {
     
     private lazy var newsImage : UIImageView = {
         let imageView = UIImageView()

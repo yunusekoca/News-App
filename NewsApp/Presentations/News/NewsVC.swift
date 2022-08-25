@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsViewController: UIViewController {
+final class NewsViewController: UIViewController {
     
     private var viewModel: NewsViewModel
     private var articles = [Article]()
@@ -32,6 +32,7 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Haberler"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         newsTable.delegate = self
         newsTable.dataSource = self
@@ -56,6 +57,7 @@ class NewsViewController: UIViewController {
     
     private func setupConstraints() {
         view.addSubview(newsTable)
+        
         NSLayoutConstraint.activate([
             newsTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             newsTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -79,5 +81,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let detailsVC = NewsDetailsViewController(viewModel: NewsDetailsViewModel(article: articles[indexPath.row]))
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
